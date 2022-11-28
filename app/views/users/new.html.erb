@@ -1,2 +1,72 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+
+  <div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col-md-3">
+  <h2>User info</h2>
+  <%= image_tag current_user.get_image(100,100) %>
+  <table class="table">
+    <tbody>
+      <tr>
+      <th>name</th>
+      <th><%= current_user.name %></th>
+      </tr>
+      <tr>
+      <th>introduction</th>
+      <th><%= current_user.introduction %></th>
+      </tr>
+    </tbody>
+  </table>
+  
+    
+    <div class="row">
+    <a class="btn btn-outline-secoudary btn-block">
+      <i class="fas fa-user-cog"></i></a>
+      
+      <%= link_to "Edit" , edit_user_path(current_user.id) %></div>
+    
+    
+<h2>New book</h2>
+
+<%= form_with model: Book.new, method: :post do |f| %>
+        <div class="form-group">
+        <label for="book_title">Title</label>
+        <br><%= f.text_field :title %></br></div>
+        <div class="form-group">
+        <label for="book_opinion">Opinion</label>
+        <br><%= f.text_area :body %></br></div>
+        <div class="form-group">
+        <%= f.submit 'Create Book' %></div>
+        <% end %>
+  </div>
+
+<div class="col-md-8 offset-md-1">
+    
+    <h2>Books</h2>
+<table class ="table table-hover table-inverse">
+    <thread>
+        <tr>
+        <th></th>
+        <th>Title</th>
+        
+        <th>Opinion</th>
+        <th colspan="3"></th>
+        </tr>
+    </thread>
+    <% Book.all.each do |book| %>
+    <tbody>
+    <tr>
+      <td><%= link_to user_path(book.user) do %>
+      <%= image_tag book.user.get_image(100,100) %> <% end %>
+          </td>
+      <td><%= link_to book_path(book.id) do %>
+        <%= book.title %>
+        <% end %></td>
+      <td><%= book.body %></td>
+     
+      <td> <% if book.user == current_user %><%= link_to "Edit", edit_book_path(book.id) %><% end %></td>
+  <td><% if book.user == current_user %><%= link_to "Destroy", book_path(book.id), method: :delete, "data-confirm" => "Are you sure ?" %><% end %></td>
+    </tr>
+    
+    </tbody><% end %>
+</table>
+</div>

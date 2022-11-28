@@ -20,17 +20,17 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav ml-auto">
     <% if user_signed_in? %>
-     <li class="nav-link text-light"><i class="fas fa-home"></i><%= link_to "Home", user_path(current_user.id) %>
-     </li>
+     <%= link_to user_path(current_user.id) do %><li class="nav-link text-light"><i class="fas fa-home"></i>Home
+     </li><% end %>
      <li><a class="nav-link text-light" href="/users"><i class="fas fa-users"></i>Users</a>
      </li>
      <li>
        <a class="nav-link text-light" href="/books"><i class="fas fa-book-open"></i>Books</a>
      </li>
-      <li class="nav-link text-light" href=><i class="fas fa-sign-out-alt"></i><%= link_to "Log out", destroy_user_session_path, method: :delete %>
-      </li>
+      <%= link_to destroy_user_session_path, method: :delete do %><li class="nav-link text-light" href=><i class="fas fa-sign-out-alt"></i>Log out
+      </li><% end %>
 
-      
+
     <% else %>
      <li><a class="nav-link text-light" href=""><i class="fas fa-home"></i>Home</a></li>
      <li><a class="nav-link text-light" href="/home/about"><i class="fas fa-link"></i>About</a>
@@ -40,12 +40,12 @@
      </li>
       <a class="nav-link text-light" href="users/sign_in"><i class="fas fa-sign-in-alt"></i>Log in</a>
       </li>
-      
+
     <% end %>
     </ul>
     </div>
     </div>
-    </nav>        
+    </nav>
   </header>
   <main>
   <%= yield %>
@@ -60,6 +60,6 @@
       </div>
     </div>
   </footer>
-    
+
   </body>
 </html>
